@@ -1,5 +1,11 @@
 package com.blog.dto;
 
+import static com.blog.constants.ApplicationConstants.EMAIL_REGEX;
+import static com.blog.constants.ApplicationConstants.PASSWORD_REGEX;
+import static com.blog.constants.ApplicationConstants.INVALID_EMAIL_FORMAT_MESSAGE;
+import static com.blog.constants.ApplicationConstants.INVALID_PASSWORD_FORMAT_MESSAGE;
+
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -16,12 +22,12 @@ public class UserDto {
 	
 	@NotEmpty
 	@Size(min=7,message="please enter the valid email , your email length should be atleast 7")
-	@Email(regexp = "^[A-Za-z]+[.!A-Za-z0-9]+@[A-Za-z]+[.]{1}[A-Za-z]+$",message = "please enter a valid email")
+	@Email(regexp = EMAIL_REGEX,message = INVALID_EMAIL_FORMAT_MESSAGE)
 	private String email;
 	
 	@NotEmpty()
 	@Size(min = 8, message = "Password value should be 8 atleast")
-	@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[\\d])(?=.*[!@#$%^&*()])[\\w!@#$%^&*()]{8,24}$", message = "please enter a valid password, there should be atleast one special character, atleast one upper and one lower case character and one digit")
+	@Pattern(regexp = PASSWORD_REGEX, message = INVALID_PASSWORD_FORMAT_MESSAGE)
 	private String password;
 	
 	@NotEmpty(message="Field can not be empty")

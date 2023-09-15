@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.blog.constants.ApplicationConstants;
 import com.blog.dto.PostDto;
 import com.blog.dto.PostResponse;
 import com.blog.entity.Category;
@@ -73,7 +74,8 @@ public class PostServiceImpl {
 	
 	public PostResponse getAllPosts(int pageSize, int pageNumber, String sortBy, String sortDir){
 		
-		Sort sort = sortDir.equalsIgnoreCase("asc")?Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
+		Sort sort = sortDir.equalsIgnoreCase(ApplicationConstants.SORT_DIR)
+							?Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
 		
 		
 		Pageable page = PageRequest.of(pageNumber, pageSize, sort);
@@ -104,6 +106,7 @@ public class PostServiceImpl {
 		Post post = repo.findById(id).orElseThrow(()->new ResourceNotFoundException("Post",id));
 		post.setTitle(dto.getTitle());
 		post.setContent(dto.getContent());
+		post.setImageName(dto.getImageName());
 		post.setLastUpdated(Timestamp.valueOf(LocalDateTime.now()));
 
 		Post postUpdated = repo.save(post);

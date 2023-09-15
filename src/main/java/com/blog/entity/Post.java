@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +33,7 @@ public class Post {
 	@Column(name = "post_content", length = 1000, nullable = false)
 	private String content; 
 	
-	
+	@Lob
 	private String imageName;
 	
 	@Column(name = "post_creation_date")

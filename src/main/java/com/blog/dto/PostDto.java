@@ -3,7 +3,10 @@ package com.blog.dto;
 
 import java.util.Date;
 
+import com.blog.constants.ApplicationConstants;
+
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +30,7 @@ public class PostDto {
 	
 	private Date date;
 	
+	@Pattern(regexp = ApplicationConstants.IMAGE_FORMAT_REGEX, message = ApplicationConstants.INVALID_IMAGE_FORMAT_MESSAGE)
 	private String imageName;
 	
 	private CategoryDto category;
