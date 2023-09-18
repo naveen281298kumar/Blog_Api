@@ -15,4 +15,5 @@ public class ApplicationConstants {
 	public static final String IMAGE_FORMAT_REGEX = "\\.(png|apng|avif|gif|jpg|jpeg|jfif|pjpeg|pjp|svg|webp)";
 	public static final String INVALID_IMAGE_FORMAT_MESSAGE = "Please enter a valid image format (use the following extensiions only {png|apng|avif|gif|jpg|jpeg|jfif|pjpeg|pjp|svg|webp})";
 
+
 }
