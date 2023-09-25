@@ -2,8 +2,11 @@ package com.blog.dto;
 
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.blog.constants.ApplicationConstants;
+import com.blog.entity.Comment;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -36,4 +39,6 @@ public class PostDto {
 	private CategoryDto category;
 	
 	private UserDto user;
+
+	private Set<CommentDto>  comments = new HashSet();
 }
