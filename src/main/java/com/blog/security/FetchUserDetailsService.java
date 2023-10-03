@@ -11,7 +11,7 @@ import com.blog.exceptions.UserEmailNotFoundException;
 import com.blog.repository.UserRepo;
 
 @Component
-public class FetchUserDetailsService implements UserDetailsService{
+public class FetchUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepo userRepo;
@@ -21,6 +21,7 @@ public class FetchUserDetailsService implements UserDetailsService{
 
         // loading user from database by username for authentication
         User user = userRepo.findByEmail(username).orElseThrow(() -> new UserEmailNotFoundException(username));
+        return user;
     }
-    
+
 }

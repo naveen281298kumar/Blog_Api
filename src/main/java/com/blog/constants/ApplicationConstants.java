@@ -14,6 +14,6 @@ public class ApplicationConstants {
 	public static final String INVALID_PASSWORD_FORMAT_MESSAGE = "please enter a valid password, there should be atleast one special character, atleast one upper and one lower case character and one digit";
 	public static final String IMAGE_FORMAT_REGEX = "\\.(png|apng|avif|gif|jpg|jpeg|jfif|pjpeg|pjp|svg|webp)";
 	public static final String INVALID_IMAGE_FORMAT_MESSAGE = "Please enter a valid image format (use the following extensiions only {png|apng|avif|gif|jpg|jpeg|jfif|pjpeg|pjp|svg|webp})";
-
+	public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
 }
