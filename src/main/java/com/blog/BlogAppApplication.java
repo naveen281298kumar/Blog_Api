@@ -6,11 +6,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
+
+import com.blog.constants.ApplicationConstants;
+import com.blog.entity.Role;
+import com.blog.entity.Role.Role_Name;
+import com.blog.repository.RoleRepo;
+
+import java.util.List;
+import java.util.Set;
 
 import org.modelmapper.ModelMapper;
 
@@ -19,6 +23,10 @@ public class BlogAppApplication implements CommandLineRunner{
 
 	@Autowired
 	private PasswordEncoder encoder;
+	
+	@Autowired
+	private RoleRepo roleRepo;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(BlogAppApplication.class, args);
 	}
@@ -28,21 +36,29 @@ public class BlogAppApplication implements CommandLineRunner{
 		return new ModelMapper();
 	}
 	
-	@Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
-        configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
 
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println(encoder.encode("naveen54321"));
+		
+		try {
+			
+			Role role1 = new Role();
+			role1.setId(ApplicationConstants.ADMIN_USER);
+			role1.setRole(Role_Name.ADMIN);
+			
+			Role role2 = new Role();
+			role2.setId(ApplicationConstants.NORMAL_USER);
+			role2.setRole(Role_Name.NORMAL);
+			
+			Set<Role> roles = Set.of(role1, role2);
+			
+			List<Role> result = roleRepo.saveAll(roles);
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 }

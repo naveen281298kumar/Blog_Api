@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.blog.constants.ApplicationConstants;
 import com.blog.dto.UserDto;
+import com.blog.entity.Role;
 import com.blog.entity.User;
 import com.blog.exceptions.ResourceNotFoundException;
+import com.blog.repository.RoleRepo;
 import com.blog.repository.UserRepo;
 
 @Service
@@ -23,13 +26,34 @@ public class UserServiceImpl implements UserService{
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private RoleRepo roleRepo;
+	
+	
+	@Override
+	public UserDto registerUser(UserDto userDto) {
+		
+		User user = mapper.map(userDto, User.class);
+		
+//		encode password
+		String encryptPassword = passwordEncoder.encode(user.getPassword());
+		user.setPassword(encryptPassword);
+		
+//		roles
+		Role role = this.roleRepo.findById(ApplicationConstants.NORMAL_USER).get();
+		
+		user.getRoles().add(role);
+		User newUser = userRepo.save(user);
+		
+		return mapper.map(newUser, UserDto.class);
+	}	
+	
 
 	@Override
 	public UserDto createUser(UserDto userDto) {
 
 		User user = mapper.map(userDto, User.class);
-		String encryptPassword = passwordEncoder.encode(user.getPassword());
-		user.setPassword(encryptPassword);
 		User userCreated = userRepo.save(user);
 		return mapper.map(userCreated, UserDto.class);
 	}
@@ -77,8 +101,11 @@ public class UserServiceImpl implements UserService{
 		return "user deleted successfully";
 	}
 	
+
+	
+
+	@Override
 	public String deleteAllusers() {
-		
 		userRepo.deleteAll();
 		return "All users deleted successfully";
 	}

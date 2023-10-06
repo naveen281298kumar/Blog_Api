@@ -1,8 +1,8 @@
 package com.blog.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,8 +12,13 @@ import lombok.Setter;
 @Entity
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role_Name role;
+    
+    public enum Role_Name{
+    	NORMAL,ADMIN
+    }
 }
+

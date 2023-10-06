@@ -43,4 +43,16 @@ public class GlobalException {
 		return new ResponseEntity<Map<String,String>>(response,HttpStatus.BAD_REQUEST);
 	}
 
+	
+	@ExceptionHandler(WrongCredentialException.class)
+	public ResponseEntity<ErrorInfo> wrongCredentialException(WrongCredentialException ex){
+		
+		ErrorInfo error = new ErrorInfo();
+		error.setError_code(HttpStatus.BAD_REQUEST.value());
+		error.setSuccess(false);
+		error.setError_message(ex.getMessage());
+		error.setError_time(LocalDateTime.now());
+		
+		return new ResponseEntity<ErrorInfo>(error,HttpStatus.BAD_REQUEST);
+	}
 }
