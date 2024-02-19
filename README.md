@@ -14,3 +14,4 @@
 - Using DTO for data transfer
 - Swagger for API documentation
 - Add profiles for diffrent environmnets
+- JWT authentications for security
